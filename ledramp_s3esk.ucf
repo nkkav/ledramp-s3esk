@@ -1,0 +1,11 @@
+
+NET "clk"       LOC = "C9";
+
+NET "ramp<0>"   LOC = "F12";
+NET "ramp<1>"   LOC = "E12";
+NET "ramp<2>"   LOC = "E11";
+NET "ramp<3>"   LOC = "F11";
+NET "ramp<4>"   LOC = "C11";
+NET "ramp<5>"   LOC = "D11";
+NET "ramp<6>"   LOC = "E9";
+NET "ramp<7>"   LOC = "F9";
