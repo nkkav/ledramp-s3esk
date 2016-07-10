@@ -1,6 +1,6 @@
-# Filename : plotline_sys-syn.sh
-# Author   : Nikolaos Kavvadias 2012, 2013
-# Copyright: (C) 2012, 2013 Ajax Compilers
+# Filename : ledramp-syn.sh
+# Author   : Nikolaos Kavvadias
+# Copyright: (C) 2012, 2013, 2014, 2015, 2016 Nikolaos Kavvadias
 
 #!/bin/bash
 
