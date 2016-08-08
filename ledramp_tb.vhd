@@ -13,6 +13,9 @@ architecture tb_arch of ledramp_tb is
 
   -- UUT component
   component ledramp
+    generic (
+      PWM_RANGE_MAX : integer := 5000000
+    );
     port (
       clk  : in  std_logic;
       ramp : out std_logic_vector(7 downto 0)
@@ -31,6 +34,9 @@ architecture tb_arch of ledramp_tb is
 begin
 
   uut : ledramp
+    generic map (
+      PWM_RANGE_MAX => 1000
+    )
     port map (
       clk   => clk,
       ramp  => ramp

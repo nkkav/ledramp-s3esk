@@ -8,6 +8,9 @@ use IEEE.std_logic_unsigned.all;
 
 
 entity ledramp is
+  generic (
+    PWM_RANGE_MAX : integer := 5000000
+  );
   port (
     clk  : in  std_logic;
     ramp : out std_logic_vector(7 downto 0)
@@ -19,10 +22,6 @@ architecture behavioral of ledramp is
   --
   -- Type declarations
   type state_type is (PULSE, SHIFT);
-  type pwm_range is range 0 to 5000000;
-  --
-  -- Constant declarations
-  constant pwm_max : pwm_range := 5000000;
   --
   -- Signal declarations
   signal state : state_type := PULSE;
@@ -34,7 +33,7 @@ begin
     -- Variable declarations
     variable up        : std_logic_vector(7 downto 0) := "00000001";
     variable direction : std_logic := '0';
-    variable mark      : pwm_range := 0;
+    variable mark      : integer := 0;
     --
   begin
     if (rising_edge(clk)) then
@@ -44,7 +43,7 @@ begin
           --
           mark := mark + 1;
           --
-          if (mark = pwm_max) then
+          if (mark = PWM_RANGE_MAX) then
             state <= SHIFT;
             mark := 0;
           end if;

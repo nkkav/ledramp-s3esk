@@ -3,7 +3,7 @@
 
 GHDL=ghdl
 GHDLFLAGS=-fexplicit --ieee=synopsys --workdir=work
-GHDLRUNFLAGS=--stop-time=200000ns
+GHDLRUNFLAGS=--stop-time=1000000ns
 
 all : run
 
