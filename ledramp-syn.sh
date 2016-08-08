@@ -9,7 +9,7 @@
 #export XDIR=/cygdrive/c/XilinxISE/14.6/ISE_DS/ISE
 export XDIR=/c/XilinxISE/14.6/ISE_DS/ISE
 make -f xst.mk clean
-make -f xst.mk PROJECT="ledramp_s3esk" SOURCES="ledramp_s3esk.vhd" TOPDIR="./log" TOP="ledramp" \
+make -f xst.mk PROJECT="ledramp" SOURCES="ledramp.vhd" TOPDIR="./log" TOP="ledramp" \
   ARCH="spartan3" PART="xc3s500e-fg320-4"
 
 # Invoke impact.exe for manual download of the generated bitstream to a 

@@ -10,15 +10,19 @@
 +-------------------+----------------------------------------------------------+
 | **Source**        | User "buserror" (C) 2007                                 |
 +-------------------+----------------------------------------------------------+
-| **Contact**       | nikos@nkavvadias.com                                     |
+| **Contact**       | nikolaos.kavvadias@gmail.com                             |
 +-------------------+----------------------------------------------------------+
 | **Website**       | http://www.nkavvadias.com                                |
 +-------------------+----------------------------------------------------------+
-| **Release Date**  | 18 June 2014                                             |
+| **Release Date**  | 08 August 2016                                           |
 +-------------------+----------------------------------------------------------+
-| **Version**       | 1.0.2                                                    |
+| **Version**       | 1.0.3                                                    |
 +-------------------+----------------------------------------------------------+
 | **Rev. history**  |                                                          |
++-------------------+----------------------------------------------------------+
+|        **v1.0.3** | 2016-08-08                                               |
+|                   |                                                          |
+|                   | Update file names, add GHDL simulation scripts.          |
 +-------------------+----------------------------------------------------------+
 |        **v1.0.2** | 2016-07-10                                               |
 |                   |                                                          |
@@ -68,17 +72,26 @@ The ledramp distribution includes the following files:
 +-----------------------+------------------------------------------------------+
 | README.pdf            | PDF version of README.rst.                           |
 +-----------------------+------------------------------------------------------+
-| ledramp_s3esk.ucf     | User Constraints File for the XC3S500E-FG320-4       |
-|                       | device.                                              |
+| clean.sh              | A bash script for cleaning simulation artifacts.     |
 +-----------------------+------------------------------------------------------+
-| ledramp_s3esk.vhd     | The top-level RTL VHDL design file.                  |
+| ghdl.mk               | Makefile for VHDL simulation with GHDL.              |
 +-----------------------+------------------------------------------------------+
-| ledramp-syn.sh        | Bash shell script for synthesizing the ``ledramp``   |
-|                       | design with Xilinx ISE.                              |
+| ghdl.sh               | Bash shell script for running the simulation with    |
+|                       | GHDL.                                                |
 +-----------------------+------------------------------------------------------+
 | impact_s3esk.bat      | Windows Batch file for automatically invoking Xilinx |
 |                       | IMPACT in order to download the generated bitstream  |
 |                       | to the target hardware.                              |
++-----------------------+------------------------------------------------------+
+| ledramp.ucf           | User Constraints File for the XC3S500E-FG320-4       |
+|                       | device.                                              |
++-----------------------+------------------------------------------------------+
+| ledramp.vhd           | The top-level RTL VHDL design file.                  |
++-----------------------+------------------------------------------------------+
+| ledramp_tb.vhd        | Testbench for the top-level RTL VHDL design file.    |
++-----------------------+------------------------------------------------------+
+| ledramp-syn.sh        | Bash shell script for synthesizing the ``ledramp``   |
+|                       | design with Xilinx ISE.                              |
 +-----------------------+------------------------------------------------------+
 | rst2docs.sh           | Bash script for generating the HTML and PDF versions.|
 +-----------------------+------------------------------------------------------+
@@ -98,7 +111,28 @@ to specify the following for adapting to the user's setup:
 - ``arch``: specific FPGA architecture (device family) to be used for synthesis
 - ``part``: specific FPGA part (device) to be used for synthesis
 
-3.1. Running the synthesis script
+3.1. Running the simulation script
+----------------------------------
+
+This step assumes that the GHDL executable is in the user's ``$PATH``, e.g., by 
+using:
+
+| ``$ export PATH=/path/to/ghld/bin:$PATH``
+
+Then the simulation shell script can be run from a UNIX/Linux/Cygwin command line:
+
+| ``$ ./ghdl.sh``
+
+This will produce a text file named ``ledramp_results.txt`` with the values 
+of current time whenever a clock event occurs (as integer) and the signal 
+``ramp``.
+
+To clean up simulation artifacts, including the generated diagnostics file, use 
+the ``clean.sh`` script:
+
+| ``$ ./clean.sh``
+
+3.2. Running the synthesis script
 ---------------------------------
 
 For running the Xilinx ISE synthesis tool, generating FPGA configuration 
@@ -126,8 +160,7 @@ Typically, this process includes the following:
 - Tracing critical paths using ``trce`` for reoptimizing the ``*.ncd`` file.
 - Bitstream generation (``*.bit``) using ``bitgen``, however with unused pins.
 
-As a result of this process, the ``ledramp_s3esk.bit`` bitstream file is 
-produced.
+As a result of this process, the ``ledramp.bit`` bitstream file is produced.
 
 Then, the shell script invokes the Xilinx IMPACT tool by a Windows batch file, 
 automatically passing a series of commands that are necessary for configuring 
@@ -161,8 +194,13 @@ the target FPGA device:
 4. Prerequisites
 ================
 
-- [suggested] MinGW environment on Windows 7 (64-bit).
+- [suggested] Linux (e.g., Ubuntu 16.04 LTS) or MinGW environment on Windows 7 
+  (64-bit).
+
+- [suggested] GHDL simulator: http://ghdl.free.fr
+  The 0.33 version on Linux Ubuntu 16.04 LTS was used.
 
 - Xilinx ISE (free ISE webpack is available from the Xilinx website): 
   http://www.xilinx.com.
   The 14.6 version on Windows 7/64-bit is known to work.
+
