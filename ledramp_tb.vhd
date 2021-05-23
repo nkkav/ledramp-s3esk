@@ -2,7 +2,6 @@ library IEEE, STD;
 use STD.textio.all;
 use IEEE.std_logic_textio.all;
 use IEEE.std_logic_1164.all;
-use IEEE.std_logic_unsigned.all;
 
 
 entity ledramp_tb is
@@ -24,8 +23,6 @@ architecture tb_arch of ledramp_tb is
   -- I/O signals
   signal clk   : std_logic := '0';
   signal ramp  : std_logic_vector(7 downto 0);
-  -- Profiling signals
-  signal ncycles : integer := 0;
   -- Constant declarations
   constant CLK_PERIOD : time := 20 ns;
   -- Declare results file
@@ -50,13 +47,6 @@ begin
       clk <= not clk after CLK_PERIOD/2;
     end if;
   end process CLK_GEN_PROC;
-
-  PROFILING: process(clk)
-  begin
-    if (rising_edge(clk)) then
-      ncycles <= ncycles + 1;
-    end if;
-  end process PROFILING;
 
   process (clk)
     variable line_el: line;

@@ -1,8 +1,8 @@
 # Filename: ghdl.mk
-# Author: Nikolaos Kavvadias (C) 2016
+# Author: Nikolaos Kavvadias (C) 2016-2021
 
 GHDL=ghdl
-GHDLFLAGS=-fexplicit --ieee=synopsys --workdir=work
+GHDLFLAGS=--ieee=standard --std=08 --workdir=work
 GHDLRUNFLAGS=--stop-time=1000000ns
 
 all : run
@@ -11,14 +11,13 @@ elab : force
 	$(GHDL) -c $(GHDLFLAGS) -e ledramp_tb
 
 run : force
-	./ledramp.ghdl $(GHDLRUNFLAGS)
+	$(GHDL) --elab-run $(GHDLFLAGS) ledramp_tb $(GHDLRUNFLAGS)
 
 init : force
 	mkdir work
-	$(GHDL) -i $(GHDLFLAGS) ledramp.vhd
-	$(GHDL) -i $(GHDLFLAGS) ledramp_tb.vhd
-	$(GHDL) -m $(GHDLFLAGS) -o ledramp.ghdl ledramp_tb
+	$(GHDL) -a $(GHDLFLAGS) ledramp.vhd
+	$(GHDL) -a $(GHDLFLAGS) ledramp_tb.vhd
 force : 
 
 clean :
-	rm -rf *.o *.ghdl work
+	rm -rf *.o *.ghdl work *_results.txt

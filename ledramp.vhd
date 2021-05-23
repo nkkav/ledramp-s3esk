@@ -3,9 +3,6 @@
 -- by user "buserror"
 library IEEE;
 use IEEE.std_logic_1164.all;
-use IEEE.std_logic_arith.all;
-use IEEE.std_logic_unsigned.all;
-
 
 entity ledramp is
   generic (
@@ -19,7 +16,6 @@ end ledramp;
 
 
 architecture behavioral of ledramp is
-  --
   -- Type declarations
   type state_type is (PULSE, SHIFT);
   --
@@ -29,7 +25,6 @@ architecture behavioral of ledramp is
 begin
 
   process (clk)
-    --
     -- Variable declarations
     variable up        : std_logic_vector(7 downto 0) := "00000001";
     variable direction : std_logic := '0';
