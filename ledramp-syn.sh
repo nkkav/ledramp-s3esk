@@ -24,4 +24,3 @@ else
   units=seconds
 fi
 echo "The XST synthesis script has been running for $SECONDS $units."
-exit 0
